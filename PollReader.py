@@ -80,22 +80,15 @@ class PollReader():
             str: A string indicating the candidate with the highest polling percentage or EVEN,
              and the highest polling percentage.
         """
-        max_harris = 0
-        max_trump = 0
-        for i in self.data_dict['Harris result']:
-            if i > max_harris:
-                max_harris = i
-        for i in self.data_dict['Trump result']:
-            if i > max_trump:
-                max_trump = i
+        max_harris = max(self.data_dict['Harris result'])
+        max_trump = max(self.data_dict['Trump result'])
         if max_harris > max_trump:
-            return f"Harris {max_harris}%"
+            return f"Harris {(max_harris*100):.1f}%"
         elif max_harris < max_trump:
-            return f"Trump {max_trump}%"
+            return f"Trump {(max_trump*100):.1f}%"
         else:
-            return f"EVEN {max_harris}%"
+            return f"EVEN {(max_harris*100):.1f}%"
             
-
 
     def likely_voter_polling_average(self):
         """
@@ -105,9 +98,20 @@ class PollReader():
             tuple: A tuple containing the average polling percentages for Harris and Trump
                    among likely voters, in that order.
         """
-        pass
-
-
+        harris_avg = 0
+        trump_avg = 0
+        harris_total = 0
+        trump_total = 0
+        count = 0
+        for i in self.data_dict['Harris result']:
+            count += 1 
+            harris_total += i
+        for i in self.data_dict['Trump result']:
+            trump_total += i
+        harris_avg = harris_total / count
+        trump_avg = trump_total / count
+        return (harris_avg, trump_avg)
+       
     def polling_history_change(self):
         """
         Calculate the change in polling averages between the earliest and latest polls.
@@ -119,7 +123,11 @@ class PollReader():
             tuple: A tuple containing the net change for Harris and Trump, in that order.
                    Positive values indicate an increase, negative values indicate a decrease.
         """
-        pass
+        harris_firstave = 0
+        harris_lastave = 0
+        trump_firstave = 0
+        trump_lastave = 0
+        while self.data_dict
 
 
 class TestPollReader(unittest.TestCase):
