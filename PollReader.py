@@ -87,7 +87,7 @@ class PollReader():
         elif max_harris < max_trump:
             return f"Trump {(max_trump*100):.1f}%"
         else:
-            return f"EVEN {(max_harris*100):.1f}"
+            return f"EVEN {(max_harris*100):.1f}%"
             
 
     def likely_voter_polling_average(self):
